@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Менеджер завдань</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <h1>Менеджер завдань</h1>
+        
+        <div class="content-wrapper">
+          <!-- Форма створення завдання -->
+          <div class="form-section">
+            <h2>Створити нове завдання</h2>
+            <form id="task-form">
+              <div class="form-group">
+                <label for="title">Назва:</label>
+                <input type="text" id="title" name="title" required />
+              </div>
+              
+              <div class="form-group">
+                <label for="description">Опис:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label for="status">Статус:</label>
+                <select id="status" name="status" required>
+                  <option value="todo">To Do</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="done">Done</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="priority">Пріоритет:</label>
+                <select id="priority" name="priority" required>
+                  <option value="low">Низький</option>
+                  <option value="normal" selected>Нормальний</option>
+                  <option value="high">Високий</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="deadline">Дедлайн:</label>
+                <input type="date" id="deadline" name="deadline" />
+              </div>
+              
+              <button type="submit">Створити завдання</button>
+            </form>
+          </div>
+          
+          <!-- Список завдань -->
+          <div class="tasks-section">
+            <h2>Список завдань</h2>
+            <div id="tasks-list">
+              <p class="loading">Завантаження...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
