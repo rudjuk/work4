@@ -28,11 +28,16 @@ export function getStatusClass(status: Status): string {
 
 export function formatDate(dateString: string | null): string {
   if (!dateString) return 'Не вказано';
-  const date = new Date(dateString);
-  return date.toLocaleDateString('uk-UA', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return 'Не вказано';
+    return date.toLocaleDateString('uk-UA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  } catch {
+    return 'Не вказано';
+  }
 }
 

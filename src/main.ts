@@ -3,7 +3,7 @@ import { TaskController } from './modules/tasks/task.controller';
 import { TaskService } from './modules/tasks/task.service';
 import { TaskInterface } from './modules/tasks/task.types';
 import { Task } from './models';
-import { formatDate, getStatusLabel, getPriorityLabel, getPriorityClass } from './utils/task.utils';
+import { formatDate, getStatusLabel, getPriorityLabel } from './utils/task.utils';
 
 const tasksListElement = document.querySelector<HTMLDivElement>('#tasks-list')!;
 const taskForm = document.querySelector<HTMLFormElement>('#task-form')!;
@@ -20,11 +20,10 @@ function createTaskElement(task: TaskInterface): HTMLDivElement {
 
   const safeTitle = (task.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const safeDescription = (task.description || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const statusLabel = getStatusLabel(task.status);
-  const priorityLabel = getPriorityLabel(task.priority);
-  const priorityClass = getPriorityClass(task.priority);
+  const statusLabel = getStatusLabel(task.status || 'todo');
+  const priorityLabel = getPriorityLabel(task.priority || 'normal');
   const createdAtFormatted = formatDate(task.createdAt || null);
-  const deadlineFormatted = formatDate(task.deadline);
+  const deadlineFormatted = formatDate(task.deadline || null);
 
   taskElement.innerHTML = `
     <div class="task-header">
@@ -35,23 +34,23 @@ function createTaskElement(task: TaskInterface): HTMLDivElement {
     <div class="task-meta">
       <div class="task-info">
         <span class="task-label">Тип:</span>
-        <span>${task.typeTask || 'Task'}</span>
+        <span class="task-value">${(task.typeTask || 'Task').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
       </div>
       <div class="task-info">
         <span class="task-label">Статус:</span>
-        <span class="task-status status-${task.status}">${statusLabel}</span>
+        <span class="task-value">${statusLabel.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
       </div>
       <div class="task-info">
         <span class="task-label">Пріоритет:</span>
-        <span class="task-priority ${priorityClass}">${priorityLabel}</span>
+        <span class="task-value">${priorityLabel.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
       </div>
       <div class="task-info">
         <span class="task-label">Створено:</span>
-        <span>${createdAtFormatted}</span>
+        <span class="task-value">${createdAtFormatted.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
       </div>
       <div class="task-info">
         <span class="task-label">Дедлайн:</span>
-        <span>${deadlineFormatted}</span>
+        <span class="task-value">${deadlineFormatted.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
       </div>
     </div>
   `;
